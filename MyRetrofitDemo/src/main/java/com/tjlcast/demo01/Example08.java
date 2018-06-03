@@ -1,9 +1,9 @@
-package com.tjlcast;
+package com.tjlcast.demo01;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.tjlcast.entity.Blog;
-import com.tjlcast.entity.Result;
+import com.tjlcast.demo01.entity.Blog;
+import com.tjlcast.demo01.entity.Result;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;

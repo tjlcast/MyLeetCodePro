@@ -1,4 +1,4 @@
-package com.tjlcast.entity;
+package com.tjlcast.demo01.entity;
 
 /**
  * Created by tangjialiang on 2018/5/26.

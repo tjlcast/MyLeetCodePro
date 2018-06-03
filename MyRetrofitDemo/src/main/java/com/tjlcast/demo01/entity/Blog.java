@@ -1,4 +1,4 @@
-package com.tjlcast.entity;
+package com.tjlcast.demo01.entity;
 
 import com.google.gson.annotations.SerializedName;
 

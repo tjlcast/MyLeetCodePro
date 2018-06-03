@@ -1,0 +1,2 @@
+<!--注册加载retrofit服务的processor 只能在非controller中使用-->
+<bean id="retrofitProcessor" class="com.miyan.common.modules.retrofit.processor.RetrofitAutowiredProcessor"></bean>

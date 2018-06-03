@@ -1,24 +1,24 @@
-package com.tjlcast;
+package com.tjlcast.demo01;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.tjlcast.entity.Blog;
-import com.tjlcast.entity.Result;
+import com.tjlcast.demo01.entity.Blog;
+import com.tjlcast.demo01.entity.Result;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
 
 /**
- * [Retrofit Converter 反序化]源码
+ * [Retrofit Converter 序列化]源码
  */
-public class Example06 {
+public class Example07 {
     public interface BlogService {
-        @GET("blog/{id}")
-        Call<Result<Blog>> getBlog(@Path("id") int id);
+        @POST("blog")
+        Call<Result<Blog>> createBlog(@Body Blog blog);
     }
 
     public static void main(String[] args) {
@@ -35,7 +35,11 @@ public class Example06 {
 
 
         BlogService service = retrofit.create(BlogService.class);
-        Call<Result<Blog>> call = service.getBlog(2);
+        Blog blog = new Blog();
+        blog.content = "新建的Blog";
+        blog.title = "测试";
+        blog.author = "怪盗kidou";
+        Call<Result<Blog>> call = service.createBlog(blog);
         call.enqueue(new Callback<Result<Blog>>() {
             @Override
             public void onResponse(Call<Result<Blog>> call, Response<Result<Blog>> response) {

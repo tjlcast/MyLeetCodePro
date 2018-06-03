@@ -16,6 +16,10 @@
         <module>websocketpushinfo</module>
         <module>rxjava</module>
         <module>MyRetrofitDemo</module>
+        <module>MyKafkaDemo</module>
+        <module>MySpringBoot</module>
+        <module>MyGsonDemo</module>
+        <module>MyJUCDemo</module>
     </modules>
 
 

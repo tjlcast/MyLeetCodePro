@@ -14,6 +14,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * Created by tangjialiang on 2018/4/29.
  *
  * A timing-wheel optimized for approximated I/O timeout scheduling.
+ * https://blog.csdn.net/yang_chen_shi_wo/article/details/46520279
  */
 public class TimingWheel<E> {
 
