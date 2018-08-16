@@ -20,6 +20,9 @@
         <module>MySpringBoot</module>
         <module>MyGsonDemo</module>
         <module>MyJUCDemo</module>
+        <module>MyForkJoinDemo</module>
+        <module>MyLintCode</module>
+        <module>Interview_Code</module>
     </modules>
 
 
