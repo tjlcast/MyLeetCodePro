@@ -23,6 +23,8 @@
         <module>MyForkJoinDemo</module>
         <module>MyLintCode</module>
         <module>Interview_Code</module>
+        <module>AlgorithmCompetition</module>
+        <module>BestSol</module>
     </modules>
 
 

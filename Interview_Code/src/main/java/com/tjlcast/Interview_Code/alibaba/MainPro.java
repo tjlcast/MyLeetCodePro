@@ -64,13 +64,12 @@ public class MainPro {
                             lock.count = 1;
                         }
                         lock.notifyAll();
-                    }else{
+                    } else {
                         try{
                             lock.wait();
                         }catch (Exception e){
                             e.printStackTrace();
                         }
-
                     }
                 }
             }
