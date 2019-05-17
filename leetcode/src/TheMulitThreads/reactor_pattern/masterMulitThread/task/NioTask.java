@@ -48,3 +48,44 @@ public class NioTask implements Serializable {
         this.data = data;
     }
 }
+
+/**
+ int[][] array = {
+ {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
+ {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1},
+ {0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
+ {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
+ {0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1},
+ {0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1}
+ };
+ int x_m = array.length;
+ int y_m = array[0].length;
+ switch (dir) {
+ case 0:
+ if (y + 1 >= y_m || array[x][y + 1] != 0) {
+ return false;
+ }
+ y++;
+ break;
+ case 1:
+ if (x + 1 >= x_m || array[x + 1][y] != 0) {
+ return false;
+ }
+ x++;
+ break;
+ case 2:
+ if (y - 1 < 0 || array[x][y - 1] != 0) {
+ return false;
+ }
+ y--;
+ break;
+ case 3:
+ if (x - 1 < 0 || array[x - 1][y] != 0) {
+ return false;
+ }
+ x--;
+ break;
+ default:
+ break;
+ }
+ */
