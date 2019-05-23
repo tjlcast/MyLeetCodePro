@@ -1,0 +1,51 @@
+http://www.cnblogs.com/flyingeagle/articles/7102282.html
+
+java字节码操作器（几种动态编程）
+1、asm\javassist\反射 修改class
+
+CGLIB(Code Generation Library)是一个基于ASM的字节码生成库
+Objenesis是一个Java的库,主要用来创建特定的对象。 ...该方法利用了asm
+
+性能上Javassist低于反射，但高于ASM，因为Javassist增加了一层抽象。在实现成本上Javassist和反射都很低，而ASM由于直接操作字节码，相比Javassist源码级别的api实现成本高很多。
+
+
+2、动态代理：jdk（根据接口）、cglib（类继承）
+
+
+a.一个比较直观的方式，就是定义一个功能接口，然后让Proxy 和RealSubject来实现这个接口。
+b.还有比较隐晦的方式，就是通过继承。因为如果Proxy 继承自RealSubject，这样Proxy则拥有了RealSubject的功能，Proxy还可以通过重写RealSubject中的方法，来实现多态。
+其中JDK中提供的创建动态代理的机制，是以a 这种思路设计的，而cglib 则是以b思路设计的。
+
+
+.JDK的动态代理创建机制----通过接口
+
+　　比如现在想为RealSubject这个类创建一个动态代理对象，JDK主要会做以下工作：
+　　1.获取RealSubject上的所有接口列表；
+　　2.确定要生成的代理类的类名，默认为：com.sun.proxy.$ProxyXXXX ；
+　　3.根据需要实现的接口信息，在代码中动态创建该Proxy类的字节码；
+　　4.将对应的字节码转换为对应的class 对象；
+　　5.创建InvocationHandler实例handler，用来处理Proxy所有方法调用；
+　　6.Proxy的class对象以创建的handler对象为参数，实例化一个proxy对象。
+
+　　JDK通过java.lang.reflect.Proxy包来支持动态代理，一般情况下，我们使用下面的newProxyInstance方法。
+
+
+cglib 创建某个类A的动态代理类的模式是：
+　　1.查找real obj A上的所有非final 的public类型的方法定义；
+　　2.将这些方法的定义转换成字节码；
+　　3.将组成的字节码转换成相应的代理的class对象；
+　　4.实现 MethodInterceptor接口，用来处理 对代理类上所有方法的请求（这个接口和JDK动态代理InvocationHandler的功能和角色是一样的）
+
+
+相关问题：
+1、想在运行时修改类的一个方法，但是JVM是不允许动态的reload类定义的。
+一旦classloader加载了一个class，在运行时就不能重新加载这个class的另一个版本，调用toClass()会抛LinkageError。
+因此需要绕过这种方式定义全新的class。而toClass()其实是当前thread所在的classloader加载class。
+
+2、javassist生成的字节码由于没有class声明，字节码创建变量及方法调用都需要通过反射。
+这点在在线的应用上的性能损失是不能接受的，受到NBeanCopyUtil实现的启发，可以定义一个Interface，Javassist的字节码实现这个Interface，
+而调用方通过这个接口调用字节码，而不是反射，这样避免了反射调用的开销。还有一点字节码new一个变量也是通过反射，因此通过代理的方法，
+将每个pv都需要new的字节码对象改为每次new一个代理对象，代理到常驻内存的字节码对象中，这样避免了每次反射的开销。
+
+3、因为tomcat和jboss使用的是独立的classloader，而Javassist是通过默认的classloader加载类，
+因此直接对tomcat context中定义的类做toClass会抛出ClassCastException异常，可以用tomcat的classloader加载字节码。
