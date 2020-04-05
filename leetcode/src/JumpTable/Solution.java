@@ -1,6 +1,9 @@
 package JumpTable;
 
-import java.util.Random;
+import lombok.experimental.var;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author by tangjialiang
@@ -10,27 +13,23 @@ import java.util.Random;
 public class Solution {
 
     public static void main(String[] args) {
+        HashMap<String, String> datas = new HashMap(){{
+            put("aaa", "aaa");
+            put("bbb", "bbb");
+            put("ccc", "ccc");
+            put("ddd", "ddd");
+            put("eee", "eee");
+            put("fff", "fff");
+        }};
 
-    }
 
-    /**
-     * Get the level according to random jumping.
-     * @return the level.
-     */
-    private int getLevel(){
-        int level = 1;
-        while (true) {
-            int r = new Random().nextInt();
-            if (r % 2 == 0) {
-                level++;
-            } else {
-                break;
-            }
+        SkipTable st = new SkipTable<String, String>();
+        for (Map.Entry<String, String> entry : datas.entrySet()) {
+            st.add(entry.getKey(), entry.getValue());
         }
 
-        System.out.println("本次生成的level："+level);
-        return level;
+        System.out.println(st);
+
+        System.out.println("Min: " + st.findMin() + " Max: " + st.findMax());
     }
-
-
 }
